@@ -44,6 +44,18 @@ function parser(fileName) {
       } else {
         console.log("Uncompressed blob size matches expected size!")
       }
+
+      uncompressedPos = 0;  //new position tracker for the uncompressed blob
+      buildNameStrLen = uncompressedBlob.readUint8(uncompressedPos);
+      uncompressedPos += 1;
+
+      // read build name chars
+      buildName = "";
+      for (let i = 0; i < buildNameStrLen; i++) {
+        buildName += String.fromCharCode(uncompressedBlob.readUInt8(uncompressedPos));
+        uncompressedPos++;
+      }
+      console.log("Build name is \"" + buildName + "\"");
     });
   });
 }
