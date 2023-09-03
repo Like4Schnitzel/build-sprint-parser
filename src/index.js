@@ -7,12 +7,12 @@ fs.open('data/11.dat', 'r', function(status, fd) {
   }
   var buffer = Buffer.alloc(100);
   fs.read(fd, buffer, 0, 100, 0, function(err, num) {
-    let position;
+    let position; // keeps track of the current position in the file in bytes
 
     // check that file signature is correct
     // first 3 bytes must be "66, 83, 80"
     const expectedSig = [66, 83, 80];
-    let signature = [];
+    const signature = [];
     for (position = 0; position < 3; position++) {
       signature.push(buffer.readInt8(position));
     }
@@ -23,5 +23,12 @@ fs.open('data/11.dat', 'r', function(status, fd) {
     } else {
       console.log("Signature matches 66 83 80!");
     }
+
+    const fileVersion = buffer.readUInt32BE(position);
+    position += 4;
+    // probably do something with the file version here later?
+
+    const blobSize = buffer.readUint32BE(position);
+    position += 4; 
   });
 });
