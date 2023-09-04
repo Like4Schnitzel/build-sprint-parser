@@ -1,5 +1,5 @@
-var fs = require('fs');
-var zlib = require('zlib');
+const fs = require('fs');
+const zlib = require('zlib');
 
 // 1 for short array, 2 for medium, 3 for long
 function readStringArray(type, buffer, startingPos) {
